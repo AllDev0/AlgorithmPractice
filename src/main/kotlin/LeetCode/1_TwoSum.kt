@@ -1,6 +1,7 @@
 package LeetCode
 
 // https://leetcode.com/problems/two-sum/
+// 12 minutes
 
 fun main(){
     //val nums = intArrayOf(2, 7, 11, 15)
