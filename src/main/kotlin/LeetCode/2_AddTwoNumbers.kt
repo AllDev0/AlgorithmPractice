@@ -42,44 +42,33 @@ fun main() {
 
 }
 
-class ListNode(var `val`: Int) {
+class ListNode(var `val`: Int){
     var next: ListNode? = null
 }
 
 fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
-    var listNode1 = l1
-    var listNode2 = l2
-    var n1 = ""
-    var n2 = ""
-    var result: ListNode? = null
-    var current: ListNode? = null
 
-    // Convert linked list 1 to string n1
-    while (listNode1 != null) {
-        n1 += listNode1.`val`.toString()
-        listNode1 = listNode1.next
+    var l11 = l1
+    var l22 = l2
+
+    val dummyHead = ListNode(0)
+    var curr = dummyHead
+    var carry = 0
+
+    while (l11 != null || l22 != null || carry != 0){
+        val x = l11?.`val` ?: 0
+        val y = l22?.`val` ?: 0
+        val sum = carry + x + y
+        carry = sum / 10
+        curr.next = ListNode(sum % 10)
+        curr = curr.next!!
+
+        if (l11 != null)
+            l11 = l11.next
+
+        if (l22 != null)
+            l22 = l22.next
     }
 
-    // Convert linked list 2 to string n2
-    while (listNode2 != null) {
-        n2 += listNode2.`val`.toString()
-        listNode2 = listNode2.next
-    }
-
-    // Calculate the sum of n1 and n2 as a string
-    val sum = (n1.toInt() + n2.toInt()).toString()
-
-    // Build the result linked list
-    for (char in sum.reversed()) {
-        val digit = char.toString().toInt()
-        if (result == null) {
-            result = ListNode(digit)
-            current = result
-        } else {
-            current?.next = ListNode(digit)
-            current = current?.next
-        }
-    }
-
-    return result
+    return dummyHead.next
 }
